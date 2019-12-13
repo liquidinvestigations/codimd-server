@@ -4,7 +4,8 @@
 echo "Checking liquid env vars ..."
 liquid_vars=(
   NODE_ENV
-  TITLE
+  LIQUID_URL
+  LIQUID_TITLE
   CMD_HOST
   CMD_PORT
   CMD_DOMAIN

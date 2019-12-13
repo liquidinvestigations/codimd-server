@@ -200,6 +200,10 @@ app.locals.authProviders = {
   email: config.isEmailEnable,
   allowEmailRegister: config.allowEmailRegister
 }
+app.locals.liquid = {
+  url: process.env.LIQUID_URL,
+  title: process.env.LIQUID_TITLE,
+}
 
 // Export/Import menu items
 app.locals.enableDropBoxSave = config.isDropboxEnable
