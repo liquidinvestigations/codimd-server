@@ -1,4 +1,35 @@
-#!/bin/sh
+#!/bin/bash
+
+
+echo "Checking liquid env vars ..."
+liquid_vars=(
+  NODE_ENV
+  LIQUID_URL
+  LIQUID_TITLE
+  CMD_HOST
+  CMD_PORT
+  CMD_DOMAIN
+  CMD_PROTOCOL_USESSL
+  CMD_ALLOW_ORIGIN
+  CMD_USECDN
+  CMD_EMAIL
+  CMD_ALLOW_EMAIL_REGISTER
+  CMD_ALLOW_ANONYMOUS
+  CMD_ALLOW_ANONYMOUS_EDITS
+  CMD_ALLOW_GRAVATAR
+  CMD_ALLOW_FREEURL
+  CMD_DB_URL
+)
+for name in "${liquid_vars[@]}"; do
+  echo "checking $name"
+  if [ -z "${!name}" ]; then
+    echo "$name is empty, bailing"
+    sleep 10
+    exit 1
+  fi
+done
+echo "liquid env vars good, starting up"
+
 
 # Use gosu if the container started with root privileges
 UID="$(id -u)"
