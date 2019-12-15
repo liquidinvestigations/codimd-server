@@ -202,7 +202,7 @@ app.locals.authProviders = {
 }
 app.locals.liquid = {
   url: process.env.LIQUID_URL,
-  title: process.env.LIQUID_TITLE,
+  title: process.env.LIQUID_TITLE
 }
 
 // Export/Import menu items
