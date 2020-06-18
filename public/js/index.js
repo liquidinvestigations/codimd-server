@@ -1103,7 +1103,7 @@ function parseRevisions (_revisions) {
     revisionList.html('')
     for (var i = 0; i < revisions.length; i++) {
       var revision = revisions[i]
-      var item = $('<a href="#" class="list-group-item"></a>')
+      var item = $('<a class="list-group-item"></a>')
       item.attr('data-revision-time', revision.time)
       if (lastRevision === revision.time) item.addClass('active')
       var itemHeading = $('<h5 class="list-group-item-heading"></h5>')
@@ -1596,7 +1596,8 @@ function toggleNightMode () {
     store.set('nightMode', !isActive)
   } else {
     Cookies.set('nightMode', !isActive, {
-      expires: 365
+      expires: 365,
+      sameSite: 'strict'
     })
   }
 }
