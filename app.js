@@ -91,7 +91,7 @@ app.use(compression())
 if (config.hsts.enable) {
   app.use(helmet.hsts({
     maxAge: config.hsts.maxAgeSeconds,
-    includeSubdomains: config.hsts.includeSubdomains,
+    includeSubDomains: config.hsts.includeSubdomains,
     preload: config.hsts.preload
   }))
 } else if (config.useSSL) {
@@ -120,7 +120,7 @@ if (config.csp.enable) {
 }
 
 i18n.configure({
-  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id', 'sr', 'vi', 'ar', 'cs', 'sk'],
+  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id', 'sr', 'vi', 'ar', 'cs', 'sk', 'ml'],
   cookie: 'locale',
   indent: '    ', // this is the style poeditor.com exports it, this creates less churn
   directory: path.join(__dirname, '/locales'),
@@ -147,7 +147,7 @@ app.use(session({
   rolling: true, // reset maxAge on every response
   cookie: {
     maxAge: config.sessionLife,
-    sameSite: 'lax',
+    sameSite: config.cookiePolicy, // be careful: setting a SameSite value of none without https breaks the editor
     secure: config.useSSL || config.protocolUseSSL || false
   },
   store: sessionStore

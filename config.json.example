@@ -35,6 +35,7 @@
             "addDisqus": true,
             "addGoogleAnalytics": true
         },
+        "cookiePolicy": "lax",
         "db": {
             "username": "",
             "password": "",
