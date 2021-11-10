@@ -54,6 +54,32 @@ async function createUser(argv) {
 }
 
 // Using an async function to be able to use await inside
+async function createLiquidUser(argv) {
+	const existing_user = await models.User.findOne({where: {profileid: argv["profileid"]}});
+	// Cannot create already-existing users
+	if(existing_user) {
+    console.log(existing_user)
+		console.log(`User with profileid ${existing_user.profileid} already exists! Aborting ...`);
+		process.exit(2);
+	}
+
+	// Lets try to create, and check success
+  const profile = {
+    id: argv["profileid"],
+    username: argv["profileid"],
+    displayName: argv["profileid"],
+    email: `${argv["profileid"]}@${argv["domain"]}`,
+    provider: "oauth2",
+  }
+	const ref = await models.User.create({profileid: argv["profileid"], profile: JSON.stringify(profile)});
+	if(ref == undefined) {
+		console.log(`Could not create user with profileid ${argv["profileid"]}`);
+		process.exit(1);
+	} else
+		console.log(`Created user with profileid ${argv["profileid"]}`);
+}
+
+// Using an async function to be able to use await inside
 async function deleteUser(argv) {
 	// Cannot delete non-existing users
 	const existing_user = await models.User.findOne({where: {email: argv["del"]}});
@@ -88,6 +114,7 @@ async function resetUser(argv) {
 
 const options = {
 	add: createUser,
+  profileid: createLiquidUser,
 	del: deleteUser,
 	reset: resetUser,
 };
