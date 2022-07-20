@@ -130,6 +130,7 @@ async function resetUser(argv) {
 const options = {
 	add: createUser,
   profileid: createLiquidUser,
+  liquiddel: deleteLiquidUser,
 	del: deleteUser,
 	reset: resetUser,
 };
