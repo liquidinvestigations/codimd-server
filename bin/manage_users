@@ -94,6 +94,21 @@ async function deleteUser(argv) {
 	console.log(`Deleted user ${argv["del"]} ...`);
 }
 
+// Using an async function to be able to use await inside
+async function deleteLiquidUser(argv) {
+	// Cannot delete non-existing users
+	const existing_user = await models.User.findOne({where: {profileid: argv["liquiddel"]}});
+	if(!existing_user) {
+		console.log(`User with profileid ${argv["liquiddel"]} does not exist, cannot delete`);
+		process.exit(1);
+	}
+
+	// Sadly .destroy() does not return any success value with all
+	// backends. See sequelize #4124
+	await existing_user.destroy();
+	console.log(`Deleted user ${argv["liquiddel"]} ...`);
+}
+
 
 // Using an async function to be able to use await inside
 async function resetUser(argv) {
@@ -115,6 +130,7 @@ async function resetUser(argv) {
 const options = {
 	add: createUser,
   profileid: createLiquidUser,
+  liquiddel: deleteLiquidUser,
 	del: deleteUser,
 	reset: resetUser,
 };
